@@ -17,7 +17,7 @@ class Movies extends Component {
         return (
             <React.Fragment>
                     <p>{this.getMovieCount()}</p>
-                    <table className="table">
+                    <table className={this.state.movies.length === 0 ? 'table invisible': 'table'}>
                         <thead>
                             <tr>
                                 <th>Title</th>
@@ -47,7 +47,7 @@ class Movies extends Component {
         const counter = this.state.movies.length;
         switch(counter) {
             case 0:
-              return `No movies in the database`;
+              return `No more movie in the database`;
               break;
             case 1:
                 return `Showing ${counter} Movie in the database.`;
