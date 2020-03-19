@@ -46,12 +46,12 @@ class Counters extends Component {
 
     render() { 
         return ( 
-            <React.Fragment>
+            <div>
                 <button onClick={this.handleReset} type="button" className="btn btn-primary">Reset</button>
                 {this.state.counters.map(counter => 
                     <Counter key={counter.id} onDelete={this.handleDelete} onDecrement={this.handleDecrement} onIncrement={this.handleIncrement} counter={counter} />
                 )}
-            </React.Fragment> 
+            </div> 
         );
     };
 }
