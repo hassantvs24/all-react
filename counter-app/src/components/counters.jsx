@@ -20,11 +20,11 @@ class Counters extends Component {
         return ( 
             <React.Fragment>
                 {this.state.counters.map(counter => 
-                    <Counter key={counter.id} value={counter.value} id={counter.id} onDelete={this.handleDelete}/>
+                    <Counter key={counter.id} onDelete={this.handleDelete} counter={counter} />
                 )}
             </React.Fragment> 
         );
     };
 }
  
-export default Counters;
+export default Counters; 
