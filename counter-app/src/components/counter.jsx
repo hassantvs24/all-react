@@ -19,12 +19,15 @@ class Counter extends Component {
     console.log("Counter - Render");
     const {counter, onIncrement, onDecrement, onDelete} = this.props;
     return (
-      <div>
-        <h4>Counter # {counter.id}</h4>
-        <span className={this.getBadgeClasses()}>{this.formatCount()}</span>
-        <button onClick={() => onIncrement(counter)} className="btn btn-success btn-sm">+</button>
-        <button onClick={() => onDecrement(counter)} className="btn btn-secondary btn-sm m-2">-</button>
-        <button onClick={() => onDelete(counter.id)} className="btn btn-danger btn-sm m-2">Delete</button>
+      <div className="row">
+        <div className="col col-md-1">
+          <span className={this.getBadgeClasses()}>{this.formatCount()}</span>
+        </div>
+        <div className="col col-md-2">
+          <button onClick={() => onIncrement(counter)} className="btn btn-success btn-sm m-2">+</button>
+          <button onClick={() => onDecrement(counter)} className="btn btn-secondary btn-sm m-2" disabled={this.btnEnbDsb()}>-</button>
+          <button onClick={() => onDelete(counter.id)} className="btn btn-danger btn-sm m-2">x</button>
+        </div>
       </div>
     );
   }
@@ -36,10 +39,15 @@ class Counter extends Component {
     return classes;
   }
 
+  btnEnbDsb() {
+    const {counter} = this.props;
+    return counter.value <= 0 ? 'disabled' : '';
+  }
+
   formatCount() {
     const {counter} = this.props;
     const { value } = counter;
-    return value === 0 ? "0" : value;
+    return value === 0 ? "Zero" : value;
   }
 }
 

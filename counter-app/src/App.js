@@ -40,7 +40,7 @@ class App extends Component {
         counters[index] = {...counter};
         counters[index].value--;
 
-        if(counters[index].value >= 0)
+        //if(counters[index].value >= 0)
         this.setState({counters});
     };
 
