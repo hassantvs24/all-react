@@ -20,10 +20,10 @@ class Counter extends Component {
     const {counter, onIncrement, onDecrement, onDelete} = this.props;
     return (
       <div className="row">
-        <div className="col col-md-1">
+        <div className="col-1">
           <span className={this.getBadgeClasses()}>{this.formatCount()}</span>
         </div>
-        <div className="col col-md-2">
+        <div className="col">
           <button onClick={() => onIncrement(counter)} className="btn btn-success btn-sm m-2">+</button>
           <button onClick={() => onDecrement(counter)} className="btn btn-secondary btn-sm m-2" disabled={this.btnEnbDsb()}>-</button>
           <button onClick={() => onDelete(counter.id)} className="btn btn-danger btn-sm m-2">x</button>
