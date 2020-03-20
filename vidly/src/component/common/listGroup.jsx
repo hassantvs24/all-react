@@ -4,7 +4,6 @@ const ListGroup = (props) => {
     const {items, selectedItem, textProperty, valueProperty, onItemSelect} = props;
     return (  
         <ul className="list-group">
-            {/* <li className="list-group-item active" style={{ cursor: 'pointer' }}>All Genre</li> */}
             {items.map( item =>
                 <li className={item === selectedItem ? "list-group-item active" : "list-group-item"} onClick={() => onItemSelect(item)} style={{ cursor: 'pointer' }} key={item[valueProperty]}>{item[textProperty]}</li>
             )}
