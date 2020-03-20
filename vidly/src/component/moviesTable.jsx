@@ -1,18 +1,29 @@
-import React from 'react';
+import React, {Component} from 'react';
 import Like from "./common/like";
 
-const MoviesTable = (props) => {
+class MoviesTable extends Component {
+    raiseSort = path => { 
+        const sortColumn = {...this.props.sortColumn};
+        if (sortColumn.path === path)
+            sortColumn.order = (sortColumn.order === 'asc') ? 'desc': 'asc';
+            else {
+                sortColumn.path = path;
+                sortColumn.order = 'asc';
+            }
 
-    const {movies, onDelete, onLike, onSort} = props;
+            this.props.onSort(sortColumn);
+     };
 
-    return ( 
-        <table className={movies.length === 0 ? 'table invisible': 'table'}>
+    render() { 
+        const {movies, onDelete, onLike} = this.props;
+        return ( 
+            <table className={movies.length === 0 ? 'table invisible': 'table'}>
             <thead>
                 <tr>
-                    <th onClick={() => onSort('title')}>Title</th>
-                    <th onClick={() => onSort('genre.name')}>Genre</th>
-                    <th onClick={() => onSort('numberInStock')}>Stock</th>
-                    <th onClick={() => onSort('dailyRentalRate')}>Rate</th>
+                    <th onClick={() => this.raiseSort('title')}>Title</th>
+                    <th onClick={() => this.raiseSort('genre.name')}>Genre</th>
+                    <th onClick={() => this.raiseSort('numberInStock')}>Stock</th>
+                    <th onClick={() => this.raiseSort('dailyRentalRate')}>Rate</th>
                     <th></th>
                     <th>Action</th>
                 </tr>
@@ -29,7 +40,8 @@ const MoviesTable = (props) => {
                     </tr>)}
             </tbody>
         </table>
-     );
+         );
+    }
 }
  
 export default MoviesTable;
