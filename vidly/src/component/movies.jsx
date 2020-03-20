@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import {getMovies} from '../services/fakeMovieService';
 import {getGenres} from '../services/fakeGenreService';
-import Like from "./common/like";
+
 import Pagination from './common/pagination';
 import ListGroup from './common/listGroup';
+import MoviesTable from './moviesTable';
 import {paginate} from '../utils/paginate';
 
 
@@ -56,29 +57,8 @@ class Movies extends Component {
                     </div>
                     <div className="col">
                         <p>{this.getMovieCount(filtered)}</p>
-                        <table className={filtered.length === 0 ? 'table invisible': 'table'}>
-                            <thead>
-                                <tr>
-                                    <th>Title</th>
-                                    <th>Genre</th>
-                                    <th>Stock</th>
-                                    <th>Rate</th>
-                                    <th></th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {movies.map( movie => 
-                                    <tr key={movie._id}>
-                                        <td scope="row">{movie.title}</td>
-                                        <td>{movie.genre.name}</td>
-                                        <td>{movie.numberInStock}</td>
-                                        <td>{movie.dailyRentalRate}</td>
-                                        <td><Like onClick={() => this.handleLike(movie)} liked={movie.liked} /></td>
-                                        <td><button onClick={() => this.delMovie(movie)} type="button" className="btn btn-danger">Delete</button></td>
-                                    </tr>)}
-                            </tbody>
-                        </table>
+                        
+                        <MoviesTable movies={movies} movieLength={filtered} onDelete={this.delMovie} onLike={this.handleLike} />
 
                         <Pagination itemCount={filtered.length} pageSize={pageSize} currentPage={currentPage} onPageChange={this.handlePageChange} />
                     </div>
