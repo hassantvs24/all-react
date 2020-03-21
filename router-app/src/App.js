@@ -18,7 +18,7 @@ class App extends Component {
           <Switch>
             <Route path="/products/:id" component={ProductDetails} />
             <Route path="/products" render={(props) => <Products sortBy="newest" {...props} />} />
-            <Route path="/posts/:year/:month" component={Posts} />
+            <Route path="/posts/:year?/:month?" component={Posts} />{/* ? for making parameter optional */}
             <Route path="/admin" component={Dashboard} />
             <Route path="/" component={Home} />
           </Switch>
