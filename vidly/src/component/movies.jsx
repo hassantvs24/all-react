@@ -78,10 +78,8 @@ class Movies extends Component {
         switch(counter) {
             case 0:
               return `No more movie in the database`;
-              break;
             case 1:
                 return `Showing ${counter} Movie in the database.`;
-              break;
             default:
                 return `Showing ${counter} Movies in the database.`;
           }

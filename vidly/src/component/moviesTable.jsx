@@ -16,7 +16,7 @@ class MoviesTable extends Component {
     ];
 
     render() { 
-        const {movies, onDelete, onSort, onLike, sortColumn} = this.props;
+        const {movies, onSort, sortColumn} = this.props;
         return ( 
             <table className={movies.length === 0 ? 'table invisible': 'table'}>
                 <TableHeader columns={this.columns} sortColumn={sortColumn} onSort={onSort} />
