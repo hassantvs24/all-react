@@ -49,24 +49,29 @@ class Movies extends Component {
         this.setState({sortColumn});
     }
 
-    render(){
-        //const {length: count} = this.state.movies;
+    getPagedData = () => {
         const {pageSize, currentPage, selectedGenre, sortColumn, movies:allMovies} = this.state;
         const filtered = selectedGenre && selectedGenre._id ? allMovies.filter(m => m.genre._id === selectedGenre._id) : allMovies;
-        const sorted = _.orderBy(filtered, [sortColumn.path], [sortColumn.order])
+        const sorted = _.orderBy(filtered, [sortColumn.path], [sortColumn.order]);
         const movies = paginate(sorted, currentPage, pageSize);
+
+        return {totalCount : filtered.length, data: movies};
+    }
+
+    render(){
+        const {totalCount, data: movies} = this.getPagedData();
+        const {pageSize, currentPage, sortColumn} = this.state;
         return (
-           
                 <div className="row mt-5">
                     <div className="col-md-3">
                         <ListGroup items={this.state.genres} selectedItem={this.state.selectedGenre}  onItemSelect={this.handleGenreSelect} />
                     </div>
                     <div className="col">
-                        <p>{this.getMovieCount(filtered)}</p>
+                        <p>{this.getMovieCount(totalCount)}</p>
 
                         <MoviesTable movies={movies} sortColumn={sortColumn} onSort={this.handleSort} onDelete={this.delMovie} onLike={this.handleLike} />
 
-                        <Pagination itemCount={filtered.length} pageSize={pageSize} currentPage={currentPage} onPageChange={this.handlePageChange} />
+                        <Pagination itemCount={totalCount} pageSize={pageSize} currentPage={currentPage} onPageChange={this.handlePageChange} />
                     </div>
                 </div>
          
@@ -74,7 +79,7 @@ class Movies extends Component {
     }
 
     getMovieCount(movies){
-        const counter = movies.length;
+        const counter = movies;
         switch(counter) {
             case 0:
               return `No more movie in the database`;
