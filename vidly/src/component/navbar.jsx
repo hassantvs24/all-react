@@ -10,13 +10,13 @@ const NavBar = () => {
             </button>
             <div className="collapse navbar-collapse" id="navbarNav">
                 <ul className="navbar-nav">
-                    <li className="nav-item active">
+                    <li className={window.location.pathname.includes('/movies') ? "nav-item active" : "nav-item"} >
                         <Link className="nav-link" to="/movies">Movies</Link>
                     </li>
-                    <li className="nav-item">
+                    <li className={window.location.pathname.includes('/customers') ? "nav-item active" : "nav-item"}>
                         <Link className="nav-link" to="/customers">Customers</Link>
                     </li>
-                    <li className="nav-item">
+                    <li className={window.location.pathname.includes('/renters') ? "nav-item active" : "nav-item"}>
                         <Link className="nav-link" to="/renters">Renters</Link>
                     </li>
                 </ul>

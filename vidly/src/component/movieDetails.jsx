@@ -6,7 +6,7 @@ class MovieDetails extends Component {
         this.props.history.replace('/movies');
       };
     
-    render() { 
+    render() {
         return ( 
             <div>
                 <h1>Movie Details - {this.props.match.params.id}</h1>
