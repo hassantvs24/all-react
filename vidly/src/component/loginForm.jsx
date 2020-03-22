@@ -2,13 +2,25 @@ import React, { Component } from 'react';
 
 class LoginFrom extends Component {
 
-     username = React.createRef();
+     //username = React.createRef();
+
+     state = {
+         account: {username: '', password: ''}
+     };
 
     handleSubmit = e => {
         e.preventDefault();
 
-        const username = this.username.current.value;
-        console.log(username);
+        //const username = this.username.current.value;
+        console.log('Submitted');
+    };
+
+
+    handleChange = e => {
+        const account = {...this.state.account};
+        account.username = e.currentTarget.value;
+        this.setState({account});
+
     };
 
     render() { 
@@ -19,7 +31,7 @@ class LoginFrom extends Component {
                 <form onSubmit={this.handleSubmit}>
                     <div className="form-group">
                         <label htmlFor="username">Email address</label>
-                        <input ref={this.username} type="text" className="form-control" id="username" placeholder="Enter username" />
+                        <input type="text" className="form-control" id="username" placeholder="Enter username" value={this.state.account.username} onChange={this.handleChange} />
                     </div>
                     <div className="form-group">
                         <label htmlFor="password">Password</label>
