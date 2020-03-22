@@ -29,8 +29,8 @@ class LoginFrom extends Component {
         //const username = this.username.current.value;
 
         const errors = this.validate();
-        console.log(errors);
-        this.setState({errors});
+
+        this.setState({errors: errors || {} });
 
         if(errors) return;
 
@@ -46,14 +46,14 @@ class LoginFrom extends Component {
     };
 
     render() { 
-        const {account} = this.state;
+        const {account, errors} = this.state;
         return ( 
             <div>
                 <h1>Login</h1> 
 
                 <form onSubmit={this.handleSubmit}>
-                    <Input name="username" type="text" label="Username" value={account.username} onChange={this.handleChange} />
-                    <Input name="password" type="password" label="Password" value={account.password} onChange={this.handleChange} />
+                    <Input name="username" type="text" label="Username" value={account.username} onChange={this.handleChange} error={errors.username} />
+                    <Input name="password" type="password" label="Password" value={account.password} onChange={this.handleChange} error={errors.password} />
                     <button type="submit" className="btn btn-primary">Login</button>
                 </form>
 
