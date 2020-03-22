@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Input from './common/input';
 
 class LoginFrom extends Component {
 
@@ -30,14 +31,8 @@ class LoginFrom extends Component {
                 <h1>Login</h1> 
 
                 <form onSubmit={this.handleSubmit}>
-                    <div className="form-group">
-                        <label htmlFor="username">Email address</label>
-                        <input name="username" type="text" className="form-control" id="username" placeholder="Enter username" value={account.username} onChange={this.handleChange} />
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="password">Password</label>
-                        <input name="password" type="password" className="form-control" id="password" placeholder="Password"  value={account.password} onChange={this.handleChange} />
-                    </div>
+                    <Input name="username" type="text" label="Username" value={account.username} onChange={this.handleChange} />
+                    <Input name="password" type="password" label="Password" value={account.password} onChange={this.handleChange} />
                     <button type="submit" className="btn btn-primary">Login</button>
                 </form>
 
