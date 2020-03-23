@@ -17,7 +17,7 @@ class LoginFrom extends Component {
      }
 
      validate = () => {
-         const options =  {abortEarly: false};
+         const options =  {abortEarly: false};//for Show all error
          const {error} = Joi.validate(this.state.account, this.schema, options);
 
          const errors = {};
@@ -31,8 +31,6 @@ class LoginFrom extends Component {
     handleSubmit = e => {
         e.preventDefault();
 
-        //const username = this.username.current.value;
-
         const errors = this.validate();
 
         this.setState({errors: errors || {} });
@@ -44,13 +42,10 @@ class LoginFrom extends Component {
 
 
     validateProperty = ({name, value}) => {
-        if (name === 'username'){
-            if(value.trim() == '') return 'Username is required';
-        }
-
-        if (name === 'password'){
-            if(value.trim() == '') return 'Password is required';
-        }
+        const obj = {[name]: value};
+        const schema = {[name]: this.schema[name]};
+        const {error} = Joi.validate(obj, schema);
+        return error ? error.details[0].message : null;
     }
 
     handleChange = ({currentTarget: input}) => {
