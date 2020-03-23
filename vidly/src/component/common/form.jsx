@@ -52,13 +52,13 @@ class Form extends Component {
 
     };
 
-    renderButton(label){
-        return (<button type="submit" className="btn btn-primary" disabled={this.validate()}>{label}</button>);
+    renderButton(label, types="submit"){
+        return (<button type={types} className="btn btn-primary" disabled={this.validate()}>{label}</button>);
     }
 
-    renderInput(name, label, type='text'){
+    renderInput(name, label, types="text"){
         const {data, errors} = this.state;
-        return (<Input name={name} type={type} label={label} value={data[name]} onChange={this.handleChange} error={errors[name]} />)
+        return (<Input name={name} type={types} label={label} value={data[name]} onChange={this.handleChange} error={errors[name]} />)
     }
 
 

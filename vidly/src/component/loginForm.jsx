@@ -1,11 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Joi from 'joi-browser';
 import Form from './common/form';
 
 class LoginFrom extends Form {
-
-     //username = React.createRef();
-
      state = {
          data: {username: '', password: ''},
          errors: {}
