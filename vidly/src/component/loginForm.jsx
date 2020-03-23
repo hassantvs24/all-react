@@ -19,14 +19,21 @@ class LoginFrom extends Component {
      validate = () => {
          const options =  {abortEarly: false};//for Show all error
          const {error} = Joi.validate(this.state.account, this.schema, options);
-
+         if(!error) return null;
          const errors = {};
-         for(let item of error.details)
-         errors[item.path[0]] = item.message;
 
+         for(let item of error.details) errors[item.path[0]] = item.message;
+         
          return errors;
 
      }
+
+    validateProperty = ({name, value}) => {
+        const obj = {[name]: value};
+        const schema = {[name]: this.schema[name]};
+        const {error} = Joi.validate(obj, schema);
+        return error ? error.details[0].message : null;
+    }
 
     handleSubmit = e => {
         e.preventDefault();
@@ -40,13 +47,6 @@ class LoginFrom extends Component {
         console.log('Submitted');
     };
 
-
-    validateProperty = ({name, value}) => {
-        const obj = {[name]: value};
-        const schema = {[name]: this.schema[name]};
-        const {error} = Joi.validate(obj, schema);
-        return error ? error.details[0].message : null;
-    }
 
     handleChange = ({currentTarget: input}) => {
         const errors = {...this.state.errors};
