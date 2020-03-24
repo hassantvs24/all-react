@@ -22,7 +22,7 @@ class App extends Component {
             <Switch>
               <Route path="/login" component={LoginFrom} />
               <Route path="/register" component={RegisterForm} />
-              <Route path="/movies/:id" component={MovieFrom} />
+              <Route path="/movie/:id?" component={MovieFrom} />
               <Route path="/movies" component={Movies} />
               <Route path="/customers" component={Customers} />
               <Route path="/renters" component={Renters} />
