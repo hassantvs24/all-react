@@ -68,7 +68,7 @@ class Movies extends Component {
                         <ListGroup items={this.state.genres} selectedItem={this.state.selectedGenre}  onItemSelect={this.handleGenreSelect} />
                     </div>
                     <div className="col">
-                        <Link to={`/movie/`}  className="btn btn-primary mb-2">New Movie</Link>
+                        <Link to="/movies/new"  className="btn btn-primary mb-2">New Movie</Link>
                         <p>{this.getMovieCount(totalCount)}</p>
 
                         <MoviesTable movies={movies} sortColumn={sortColumn} onSort={this.handleSort} onDelete={this.delMovie} onLike={this.handleLike} />
