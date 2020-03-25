@@ -45,9 +45,16 @@ class App extends Component {
     this.setState({posts});
 //Optimistic Example
     try{
-      await axios.delete(apiEndpoint+'/'+post.id);
+      await axios.delete('ds'+apiEndpoint+'/'+post.id);
     }catch (ex){
-      alert('Something failed while deleting!');
+     // ex.request //Expected error
+     // ex.response //Unexpected error
+     if(ex.response && ex.request.status === 404)
+     alert('This post id not found!');
+     else{
+       console.log('Logging the error', ex);
+       alert('Unexpected error occurred!');
+     }
       this.setState({posts: originalPosts});
     }
     
