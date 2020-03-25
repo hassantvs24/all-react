@@ -22,13 +22,21 @@ class App extends Component {
   };
 
   handleUpdate = async post => {
+    const originalPosts = this.state.posts;
     post.title = "Updated";
-    const {data} = await axios.put(apiEndpoint+'/'+post.id, post);
 
     const posts = [...this.state.posts];
     const index = posts.indexOf(post);
     posts[index] = {...post};
     this.setState({posts});
+
+    try{
+      await axios.put(apiEndpoint+'/'+post.id, post);
+    }catch (ex){
+      alert('Something failed while updating data!');
+      this.setState({posts: originalPosts});
+    }
+
   };
 
   handleDelete = async post => {
@@ -38,7 +46,6 @@ class App extends Component {
 //Optimistic Example
     try{
       await axios.delete(apiEndpoint+'/'+post.id);
-      throw new Error('');
     }catch (ex){
       alert('Something failed while deleting!');
       this.setState({posts: originalPosts});
