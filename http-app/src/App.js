@@ -35,7 +35,7 @@ class App extends Component {
     const originalPosts = this.state.posts;
     const posts = this.state.posts.filter(p => p.id !== post.id);
     this.setState({posts});
-
+//Optimistic Example
     try{
       await axios.delete(apiEndpoint+'/'+post.id);
       throw new Error('');
