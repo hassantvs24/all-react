@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import http from './services/httpService';
+import config from './config.json';
 import "./App.css";
 
 const apiEndpoint = "https://jsonplaceholder.typicode.com/posts";
@@ -10,13 +11,13 @@ class App extends Component {
   };
 
   async componentDidMount(){
-    const {data: posts} = await http.get(apiEndpoint);
+    const {data: posts} = await http.get(config.apiEndpoint);
     this.setState({ posts });
   }
 
   handleAdd = async () => {
     const obj = {title: 'a', body: 'b'};
-    const {data: post} = await http.post(apiEndpoint, obj);
+    const {data: post} = await http.post(config.apiEndpoint, obj);
     const posts = [post, ...this.state.posts];
     this.setState({ posts }); 
   };
