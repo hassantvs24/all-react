@@ -1,14 +1,14 @@
 import React, {Component} from 'react';
-import {getMovies} from '../services/fakeMovieService';
-import {getGenres} from '../services/fakeGenreService';
+import {getMovies, deleteMovie} from '../services/movieService';
+import {getGenres} from '../services/genreService';
 import {paginate} from '../utils/paginate';
 import Pagination from './common/pagination';
 import ListGroup from './common/listGroup';
 import SearchBox from './common/searchBox';
 import MoviesTable from './moviesTable';
 import { Link } from 'react-router-dom';
+import {ToastContainer, toast} from 'react-toastify';
 import _ from 'lodash';
-
 
 
 
@@ -23,14 +23,27 @@ class Movies extends Component {
         sortColumn: {path: 'title', order: 'asc'}
     }
 
-    componentDidMount(){
-        const genres = [{ _id: '', name: 'All Genres'}, ...getGenres()];
-        this.setState({movies: getMovies(), genres});
+    async componentDidMount(){
+        const {data: getGenre} = await getGenres();
+        const {data: getMovie} = await getMovies();
+        const genres = [{ _id: '', name: 'All Genres'}, ...getGenre];
+        this.setState({movies: getMovie, genres});
     }
 
-    delMovie = movie =>{
-       const movies = this.state.movies.filter(m => m._id !== movie._id);
+    delMovie = async movie =>{
+       const originalMovies = this.state.movies;
+       const movies = originalMovies.filter(m => m._id !== movie._id);
        this.setState({movies:movies});
+
+       try{
+         await deleteMovie(movie._id);
+         toast.success('This Movie are successfully deleted');
+       }catch(ex){
+           if(ex.response && ex.response.status === 404)
+           toast.error('This Movie are not found');
+           this.setState({movies: originalMovies});
+       }
+       
     }
 
     handleLike = movie =>{
@@ -79,6 +92,7 @@ class Movies extends Component {
         const {pageSize, currentPage, sortColumn, searchQuery} = this.state;
         return (
                 <div className="row mt-5">
+                    <ToastContainer />
                     <div className="col-md-3">
                         <ListGroup items={this.state.genres} selectedItem={this.state.selectedGenre}  onItemSelect={this.handleGenreSelect} />
                     </div>

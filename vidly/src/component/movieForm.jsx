@@ -1,8 +1,9 @@
 import React from 'react';
 import Joi from 'joi-browser';
 import Form from './common/form';
-import {getGenres} from '../services/fakeGenreService';
-import {getMovie, saveMovie} from '../services/fakeMovieService';
+import {getGenres} from '../services/genreService';
+import {getMovie, saveMovie} from '../services/movieService';
+import {toast} from 'react-toastify';
 
 class MovieFrom extends Form {
     state = {
@@ -24,16 +25,28 @@ class MovieFrom extends Form {
         dailyRentalRate: Joi.number().required().min(0).max(10).label('Daily Rental Rate')
     }
 
-    componentDidMount(){
-        const genres = [{ _id: '', name: 'Select Genres'}, ...getGenres()];
+    async populateGenre(){
+        const {data: getGenre} = await getGenres();
+        const genres = [{ _id: '', name: 'Select Genres'}, ...getGenre];
         this.setState({genres});
-        const movieId = this.props.match.params.id;
-        if(movieId === "new") return;
+    }
 
-        const movie = getMovie(movieId);
-        if(!movie) return this.props.history.replace("/not-found");
+    async populateMovie(){
+        try{
+            const movieId = this.props.match.params.id;
+            if(movieId === "new") return;
 
-        this.setState({data: this.mapToViewModal(movie)});
+            const {data: movie} = await getMovie(movieId);
+            this.setState({data: this.mapToViewModal(movie)});
+        } catch (ex) {
+            if(ex.response && ex.response.status === 404) 
+              return this.props.history.replace("/not-found");
+        }
+    }
+
+    async componentDidMount(){
+        this.populateGenre();
+        this.populateMovie();
     }
 
     mapToViewModal(movie){
@@ -46,9 +59,10 @@ class MovieFrom extends Form {
         }
     }
 
-   doSubmit = () => {
+   doSubmit = async () => {
        //Call the server
-       saveMovie(this.state.data);
+       await saveMovie(this.state.data);
+       toast.success('Movies list are successfully updated.');
        this.props.history.push("/movies");
    }
     
