@@ -17,10 +17,11 @@ class LoginFrom extends Form {
 
 
     doSubmit = async () => {
-        const {data} = this.state;
         try{
+            const {data} = this.state;
             await auth.login(data.username, data.password);
-            window.location = "/";
+            const {state} = this.props.location;
+            window.location = (state ? state.from.pathname : '/'); //Redirect current url or homepage
           }catch(ex){
               if(ex.response && ex.response.status === 400){
                   const errors = {...this.state.errors};
