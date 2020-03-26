@@ -7,7 +7,7 @@ import ListGroup from './common/listGroup';
 import SearchBox from './common/searchBox';
 import MoviesTable from './moviesTable';
 import { Link } from 'react-router-dom';
-import {ToastContainer, toast} from 'react-toastify';
+import {toast} from 'react-toastify';
 import _ from 'lodash';
 
 
@@ -92,7 +92,6 @@ class Movies extends Component {
         const {pageSize, currentPage, sortColumn, searchQuery} = this.state;
         return (
                 <div className="row mt-5">
-                    <ToastContainer />
                     <div className="col-md-3">
                         <ListGroup items={this.state.genres} selectedItem={this.state.selectedGenre}  onItemSelect={this.handleGenreSelect} />
                     </div>

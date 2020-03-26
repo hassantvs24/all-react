@@ -3,8 +3,8 @@ import config from '../config.json';
 const url = config.apiEndpoint+'auth';
 
 
-export function login(email, password) {
-    return http.post(url, {
+export async function login(email, password) {
+    return await http.post(url, {
         email: email,
         password: password
     });
