@@ -4,6 +4,7 @@ import Form from './common/form';
 import * as userService from '../services/userService';
 import auth from '../services/authService';
 import {toast} from 'react-toastify';
+import { Redirect } from 'react-router-dom';
 
 class RegisterForm extends Form {
     state = {
@@ -35,6 +36,7 @@ class RegisterForm extends Form {
 
 
    render() { 
+       if(auth.getCurrentUser()) return <Redirect to="" />
        return ( 
            <div>
                <h1>Register</h1> 
