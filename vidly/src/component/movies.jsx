@@ -90,13 +90,14 @@ class Movies extends Component {
     render(){
         const {totalCount, data: movies} = this.getPagedData();
         const {pageSize, currentPage, sortColumn, searchQuery} = this.state;
+        const {user} = this.props;
         return (
                 <div className="row mt-5">
                     <div className="col-md-3">
                         <ListGroup items={this.state.genres} selectedItem={this.state.selectedGenre}  onItemSelect={this.handleGenreSelect} />
                     </div>
                     <div className="col">
-                        <Link to="/movies/new"  className="btn btn-primary mb-2">New Movie</Link>
+                        {user && (<Link to="/movies/new"  className="btn btn-primary mb-2">New Movie</Link>)}
                         <p>{this.getMovieCount(totalCount)}</p>
                         <SearchBox value={searchQuery} onChange={this.handleSearch} />
 
