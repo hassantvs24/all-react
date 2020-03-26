@@ -8,7 +8,7 @@ import 'font-awesome/css/font-awesome.css';
 import 'react-toastify/dist/ReactToastify.css';
 import { BrowserRouter } from 'react-router-dom';
 
-
+console.log(process.env);
 
 ReactDOM.render(<BrowserRouter><App /></BrowserRouter>, document.getElementById('root'));
 
